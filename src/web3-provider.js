@@ -266,6 +266,40 @@ export default class WalletConnectProvider {
         })
         .catch(getCallback(payload, callback))
     } else if (payload.method === 'eth_sendTransaction') {
+      console.log(payload)
+      if (payload.params[0] && payload.params[0].data) {
+        p = p.then(() => {
+          return new Promise((resolve, reject) => {
+            window.web3.eth.getTransactionCount(
+              payload.params[0].from,
+              (err, nonce) => {
+                if (nonce) {
+                  payload.params[0].nonce = parseInt(nonce).toString(16)
+                  resolve()
+                } else {
+                  reject(err)
+                }
+              }
+            )
+          })
+        })
+
+        const isTransfer = payload.params[0].data.startsWith('0xa9059cbb')
+        console.log(payload.params[0].data)
+        if (isTransfer) {
+          payload.params[0].dsl = {
+            type: 'erc20',
+            symbol: 'MANA',
+            decimals: 18,
+            amount: String(
+              5 * parseInt(payload.params[0].data.slice(138 - 64), 16)
+            ),
+            max: 5,
+            time: '30 minutes'
+          }
+        }
+      }
+
       return p
         .then(() => {
           return this.webconnector.createTransaction(payload)
