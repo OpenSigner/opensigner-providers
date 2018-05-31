@@ -56,7 +56,7 @@ function signTx() {
       console.log(result)
     })
     .catch(e => {
-      console.log('Wallet connect error', e)
+      console.log('OpenSigner error', e)
     })
 }
 
@@ -89,7 +89,7 @@ function sendTx() {
       console.log(result)
     })
     .catch(e => {
-      console.log('Wallet connect error', e)
+      console.log('OpenSigner error', e)
     })
 }
 

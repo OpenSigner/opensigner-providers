@@ -2,7 +2,7 @@ export function getNewFrame({sessionId, sharedKey}) {
   let container = document.createElement('iframe')
   container.setAttribute(
     'src',
-    `https://matic.network/walletconnect/session?sessionId=${sessionId}&sharedKey=${sharedKey}`
+    `https://matic.network/opensigner/session?sessionId=${sessionId}&sharedKey=${sharedKey}`
   )
   container.setAttribute('allowtransparency', true)
   container.setAttribute(

@@ -1,4 +1,4 @@
-import {WebConnector} from 'walletconnect'
+import {WebConnector} from 'opensigner'
 import {getNewFrame} from './frame'
 
 let XMLHttpRequest = null
